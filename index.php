@@ -63,14 +63,29 @@ table, th, td {
 <body>
     <h1>Lista Hotel</h1>
     <table>
+        <!--CREAZIONE NOMI COLONNE TABELLE TRAMITE USO DEI NOMI DELLE KEY NELL'ARRAY-->
+        <!--
         <tr>
-            <!--CREAZIONE NOMI COLONNE TABELLE TRAMITE USO DEI NOMI DELLE KEY NELL'ARRAY-->
             <?php 
+                /*
                 foreach($hotels[0] as $key => $value){
                     echo "<th>". $key ."</th>";
                 }
+                */
             ?>
         </tr>
+        -->
+
+        <!--CREAZIONE NOMI COLONNE TABELLE-->
+
+        <tr>
+            <th>Hotel Name</th>
+            <th>Description</th>
+            <th>Parking</th>
+            <th>Vote</th>
+            <th>Distance to center</th>
+        </tr>
+
         <?php
             foreach($hotels as $hotel){
                 echo "<tr>";

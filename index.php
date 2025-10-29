@@ -50,8 +50,18 @@ table{
     width: 100%;
 }
 
+.central{
+    display: flex;
+    justify-content: center;
+}
 form{
+    text-align: center;
     margin-bottom: 50px;
+    width: 40%;
+}
+
+form button{
+    margin-top: 10px;
 }
 table, form, th, td {
   border:1px solid black;
@@ -65,13 +75,15 @@ table, form, th, td {
     <title>Document</title>
 </head>
 <body>
-    <h1>Lista Hotel</h1>
+    <h1 class="central">Lista Hotel</h1>
 
-    <form action="index.php" method="get">
-        <label for="off">With parking?</label>
-        <input name="isParking" type="checkbox" value="1">
-        <button type="submit">Filtra</button>
-    </form>
+    <div class="central">
+        <form action="index.php" method="get">
+            <label for="off">With parking?</label>
+            <input name="isParking" type="checkbox" value="1"><br>
+            <button type="submit">Filtra</button>
+        </form>
+    </div>
 
     <table>
         <!--CREAZIONE NOMI COLONNE TABELLE TRAMITE USO DEI NOMI DELLE KEY NELL'ARRAY-->
@@ -103,14 +115,26 @@ table, form, th, td {
             $isParking = $_GET["isParking"] ?? 0;
             echo $isParking;
             foreach($hotels as $hotel){
-                echo "<tr>";
-                foreach($hotel as $key => $value){
-                    if(is_bool($value)){
-                        $value = $value ? "Si" : "No";
+                //CONDIZIONE IS PARKING
+                if($isParking == 1 && $hotel["parking"]){
+                    echo "<tr>";
+                    foreach($hotel as $key => $value){
+                        if(is_bool($value)){
+                            $value = $value ? "Si" : "No";
+                        }
+                        echo "<td>". $value ."</td>";
                     }
-                    echo "<td>". $value ."</td>";
+                    echo "</tr>";
                 }
-            echo "</tr>";
+                else if($isParking === 0){
+                    foreach($hotel as $key => $value){
+                        if(is_bool($value)){
+                            $value = $value ? "Si" : "No";
+                        }
+                        echo "<td>". $value ."</td>";
+                    }
+                    echo "</tr>";
+                }
             }
         ?>
     </table>

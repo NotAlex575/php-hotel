@@ -121,46 +121,22 @@ table, form, th, td {
             //CHECK SE NON SONO STATI MESSI I FILTRI
             if($isParking === "") $isParking = 0;
             if($voteFilter === "") $voteFilter = 0;
-            foreach($hotels as $hotel){
-                //CONDIZIONE FILTRO SOLO IS PARKING
-                if($isParking == 1 && $hotel["parking"] &&
-                $voteFilter == 0){
-                    echo "<tr>";
-                    foreach($hotel as $key => $value){
-                        if(is_bool($value)){
-                            $value = $value ? "Si" : "No";
-                        }
-                        echo "<td>". $value ."</td>";
-                    }
-                    echo "</tr>";
-                }
 
-                //CONDIZIONE FILTRO SOLO VOTE
-                elseif($voteFilter >=1 && $hotel["vote"] >= $voteFilter && 
-                $isParking == 0){
-                    echo "<tr>";
-                    foreach($hotel as $key => $value){
-                        if(is_bool($value)){
-                            $value = $value ? "Si" : "No";
-                        }
-                        echo "<td>". $value ."</td>";
-                    }
-                    echo "</tr>";
+            foreach($hotels as $hotel){
+
+                $filterActive = true;
+                //NON INSERIRE DATI SE IL CHECKBOX PARCHEGGIO E ATTIVO
+                //E IL PARKING VALUE = FALSE
+                if($isParking == 1 && !$hotel["parking"]){
+                    $filterActive = false;
                 }
-                //ENTRAMBI I FILTRI
-                elseif($isParking == 1 && $hotel["parking"] && 
-                $voteFilter >=1 && $hotel["vote"] >= $voteFilter){
-                    echo "<tr>";
-                    foreach($hotel as $key => $value){
-                        if(is_bool($value)){
-                            $value = $value ? "Si" : "No";
-                        }
-                        echo "<td>". $value ."</td>";
-                    }
-                    echo "</tr>";
+                //NON INSERIRE DATI SE IL NUMBER INPUT DEL VOTO E CON UN VALORE DA 1 A 5
+                //E IL VALORE E MINORE DEL VOTO NEL FILTRO
+                if ($voteFilter >= 1 && $hotel["vote"] < $voteFilter) {
+                    $filterActive = false;
                 }
-                //SENZA FILTRI (esercizio base, tolto elseif)
-                elseif($isParking == 0 && $voteFilter == 0){
+                //CREAZIONE TABELLA (CON O SENZA FILTRI)
+                if($filterActive){
                     echo "<tr>";
                     foreach($hotel as $key => $value){
                         if(is_bool($value)){

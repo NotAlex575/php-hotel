@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <?php
-
+    $isParking;
     $hotels = [
 
         [
@@ -49,7 +49,11 @@
 table{
     width: 100%;
 }
-table, th, td {
+
+form{
+    margin-bottom: 50px;
+}
+table, form, th, td {
   border:1px solid black;
 }
 </style>
@@ -62,6 +66,13 @@ table, th, td {
 </head>
 <body>
     <h1>Lista Hotel</h1>
+
+    <form action="index.php" method="get">
+        <label for="off">With parking?</label>
+        <input name="isParking" type="checkbox" value="1">
+        <button type="submit">Filtra</button>
+    </form>
+
     <table>
         <!--CREAZIONE NOMI COLONNE TABELLE TRAMITE USO DEI NOMI DELLE KEY NELL'ARRAY-->
         <!--
@@ -77,6 +88,7 @@ table, th, td {
         -->
 
         <!--CREAZIONE NOMI COLONNE TABELLE-->
+ 
 
         <tr>
             <th>Hotel Name</th>
@@ -87,15 +99,18 @@ table, th, td {
         </tr>
 
         <?php
+            //CHECK PER VEDERE SE PARCHEGGIO E TRUE O FALSE
+            $isParking = $_GET["isParking"] ?? 0;
+            echo $isParking;
             foreach($hotels as $hotel){
                 echo "<tr>";
-                    foreach($hotel as $key => $value){
-                        if(is_bool($value)){
-                            $value = $value ? "Si" : "No";
-                        }
-                        echo "<td>". $value ."</td>";
+                foreach($hotel as $key => $value){
+                    if(is_bool($value)){
+                        $value = $value ? "Si" : "No";
                     }
-                echo "</tr>";
+                    echo "<td>". $value ."</td>";
+                }
+            echo "</tr>";
             }
         ?>
     </table>

@@ -90,6 +90,9 @@ table, th, td {
             foreach($hotels as $hotel){
                 echo "<tr>";
                     foreach($hotel as $key => $value){
+                        if(is_bool($value)){
+                            $value = $value ? "Si" : "No";
+                        }
                         echo "<td>". $value ."</td>";
                     }
                 echo "</tr>";

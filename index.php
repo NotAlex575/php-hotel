@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <?php
-    $isParking;
     $hotels = [
 
         [
@@ -84,7 +83,7 @@ table, form, th, td {
             <label for="">With parking?</label>
             <input name="isParking" type="checkbox" value="1"><br><br>
             <label for="">Vote >= </label>
-            <input type="number" min="1" max="5"><br>
+            <input name="voteFilter" type="number" min="1" max="5"><br>
             <button type="submit">Filtra</button>
         </form>
     </div>
@@ -117,10 +116,15 @@ table, form, th, td {
         <?php
             //CHECK PER VEDERE SE PARCHEGGIO E TRUE O FALSE
             $isParking = $_GET["isParking"] ?? 0;
-            echo $isParking;
+            $voteFilter = $_GET["voteFilter"] ?? 0;
+            if($isParking === "") $isParking = 0;
+            if($voteFilter === "") $voteFilter = 0;
+            echo $isParking ."<br>";
+            echo $voteFilter;
             foreach($hotels as $hotel){
-                //CONDIZIONE IS PARKING
-                if($isParking == 1 && $hotel["parking"]){
+                //CONDIZIONE FILTRO SOLO IS PARKING
+                if($isParking == 1 && $hotel["parking"] &&
+                $voteFilter == 0){
                     echo "<tr>";
                     foreach($hotel as $key => $value){
                         if(is_bool($value)){
@@ -130,7 +134,34 @@ table, form, th, td {
                     }
                     echo "</tr>";
                 }
-                else if($isParking === 0){
+
+                //CONDIZIONE FILTRO SOLO VOTE
+                elseif($voteFilter >=1 && $hotel["vote"] >= $voteFilter && 
+                $isParking == 0){
+                    echo "<tr>";
+                    foreach($hotel as $key => $value){
+                        if(is_bool($value)){
+                            $value = $value ? "Si" : "No";
+                        }
+                        echo "<td>". $value ."</td>";
+                    }
+                    echo "</tr>";
+                }
+                //ENTRAMBI I FILTRI
+                elseif($isParking == 1 && $hotel["parking"] && 
+                $voteFilter >=1 && $hotel["vote"] >= $voteFilter){
+                    echo "<tr>";
+                    foreach($hotel as $key => $value){
+                        if(is_bool($value)){
+                            $value = $value ? "Si" : "No";
+                        }
+                        echo "<td>". $value ."</td>";
+                    }
+                    echo "</tr>";
+                }
+                //SENZA FILTRI
+                elseif($isParking == 0 && $voteFilter == 0){
+                    echo "<tr>";
                     foreach($hotel as $key => $value){
                         if(is_bool($value)){
                             $value = $value ? "Si" : "No";

@@ -62,6 +62,7 @@ form{
 
 form button{
     margin-top: 10px;
+    margin-bottom: 15px;
 }
 table, form, th, td {
   border:1px solid black;
@@ -79,8 +80,11 @@ table, form, th, td {
 
     <div class="central">
         <form action="index.php" method="get">
-            <label for="off">With parking?</label>
-            <input name="isParking" type="checkbox" value="1"><br>
+            <br>
+            <label for="">With parking?</label>
+            <input name="isParking" type="checkbox" value="1"><br><br>
+            <label for="">Vote >= </label>
+            <input type="number" min="1" max="5"><br>
             <button type="submit">Filtra</button>
         </form>
     </div>

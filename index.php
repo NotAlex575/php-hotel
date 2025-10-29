@@ -116,11 +116,11 @@ table, form, th, td {
         <?php
             //CHECK PER VEDERE SE PARCHEGGIO E TRUE O FALSE
             $isParking = $_GET["isParking"] ?? 0;
+            //CHECK PER VEDERE SE IL VOTO E MAGGIORE O UGUALE A 0
             $voteFilter = $_GET["voteFilter"] ?? 0;
+            //CHECK SE NON SONO STATI MESSI I FILTRI
             if($isParking === "") $isParking = 0;
             if($voteFilter === "") $voteFilter = 0;
-            echo $isParking ."<br>";
-            echo $voteFilter;
             foreach($hotels as $hotel){
                 //CONDIZIONE FILTRO SOLO IS PARKING
                 if($isParking == 1 && $hotel["parking"] &&
@@ -159,7 +159,7 @@ table, form, th, td {
                     }
                     echo "</tr>";
                 }
-                //SENZA FILTRI
+                //SENZA FILTRI (esercizio base, tolto elseif)
                 elseif($isParking == 0 && $voteFilter == 0){
                     echo "<tr>";
                     foreach($hotel as $key => $value){

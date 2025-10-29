@@ -46,6 +46,15 @@
 
 ?>
 
+<style>
+
+table{
+    width: 100%;
+}
+table, th {
+  border:1px solid black;
+}
+</style>
 
 <html lang="en">
 <head>
@@ -55,6 +64,15 @@
 </head>
 <body>
     <h1>Lista Hotel</h1>
-    
+    <table>
+        <tr>
+            <!--CREAZIONE NOMI COLONNE TABELLE TRAMITE USO DEI NOMI DELLE KEY NELL'ARRAY-->
+            <?php 
+                foreach($hotels[0] as $key => $value){
+                    echo "<th>". $key ."</th>";
+                }
+            ?>
+        </tr>
+    </table>
 </body>
 </html>

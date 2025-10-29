@@ -42,8 +42,6 @@
 
     ];
 
-    var_dump($hotels);
-
 ?>
 
 <style>
@@ -51,7 +49,7 @@
 table{
     width: 100%;
 }
-table, th {
+table, th, td {
   border:1px solid black;
 }
 </style>
@@ -73,6 +71,15 @@ table, th {
                 }
             ?>
         </tr>
+        <?php
+            foreach($hotels as $hotel){
+                echo "<tr>";
+                    foreach($hotel as $key => $value){
+                        echo "<td>". $value ."</td>";
+                    }
+                echo "</tr>";
+            }
+        ?>
     </table>
 </body>
 </html>
